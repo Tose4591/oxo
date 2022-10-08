@@ -1,0 +1,113 @@
+.gameTitle{
+    text-align: center;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .1em solid #1f2833; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 1.5s steps(11, end),
+      blink-caret .75s step-end infinite;
+}
+
+
+.main {
+    text-align: center;
+    position: relative;
+}
+
+.game{
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+
+    transform: translate(-50%, -50%); /* This is a shorthand of*/
+}
+
+.gameStatus{
+    display: block;
+    color:white;
+    margin-top: 2rem;
+}
+
+.gameContainer{
+    display:grid;
+    grid-template-columns: repeat(3, auto);
+    width: 306px;
+    margin: 1rem auto;
+}
+
+.hidden{
+    display:none;
+}
+
+.cell{
+    font-family: "Permanent Marker", cursive;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 0 1px #5070ff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    line-height: 100px;
+    font-size: 60px;
+    text-align: center;
+}
+
+.player1, .player2{
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 700;
+    color:white;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: orange;
+    border: solid 3px white;
+    border-radius: 10px;
+}
+
+
+.hoveredCell{
+    opacity: 0.5;
+}
+
+button{
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.25rem 1rem;
+    color:#1f2833;
+    background-color: #66fcf1;
+    border: solid 2px #1f2833;
+    border-radius: 10px;
+}
+
+button:hover{
+    background-color: transparent;
+    border: solid 2px white;
+    color: white;
+}
+
+.chooseOpponent p{
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    color:#c5c6c7;
+}
+
+.p1{
+    color: #5fc909;
+}
+
+.p2{
+    color: #ff2f0f;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color:#1f2833; }
+  }
+

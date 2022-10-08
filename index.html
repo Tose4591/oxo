@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="main">
+        <div class="background">
+            <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+            </ul>
+        </div>
+
+        <div class="game">
+            <h1 class="gameTitle">Tic Tac Toe</h1>
+
+            <div id="gameInner" class="hidden">
+                <p><span class="player1">0</span> <span class="player2">0</span></p>
+
+                <h2 class="gameStatus"></h2>
+                <div class="gameContainer">
+                    <div data-cell-index="0" class="cell"></div>
+                    <div data-cell-index="1" class="cell"></div>
+                    <div data-cell-index="2" class="cell"></div>
+                    <div data-cell-index="3" class="cell"></div>
+                    <div data-cell-index="4" class="cell"></div>
+                    <div data-cell-index="5" class="cell"></div>
+                    <div data-cell-index="6" class="cell"></div>
+                    <div data-cell-index="7" class="cell"></div>
+                    <div data-cell-index="8" class="cell"></div>
+                </div>
+                <button id="newGame">New Game</button>
+                <button id="restartScore">Restart Score</button>
+            </div>
+
+            <div class="chooseOpponent">
+                <p>Choose Opponent:</p>
+                <button id="twoPlayers">PVP</button>
+                <button id="vsComputer">Computer</button>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <link rel="stylesheet" href="background.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</body>
+</html>
