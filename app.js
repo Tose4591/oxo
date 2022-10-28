@@ -21,19 +21,19 @@ document.querySelector('#vsComputer').addEventListener('click', vsPc);
 
 
 const winningConditions = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [2,4,6],
-    [0,4,8]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [2, 4, 6],
+    [0, 4, 8]
 ];
 
 
-function changePlayer(){
-    if (gameActive === true){
+function changePlayer() {
+    if (gameActive === true) {
         if (playerTurn == 'X') playerTurn = 'O';
         else playerTurn = 'X';
         statusDisplay.innerHTML = `Next move: Player ${playerTurn}`;
@@ -41,41 +41,61 @@ function changePlayer(){
 }
 
 
-function handleCellClick(){
-    if(gameActive===true){
-        if(isPc === true && playerTurn == 'X'){
+function handleCellClick() {
+    if (gameActive === true && isPc === true) {
+        if (playerTurn == 'X') {
             const clickedCellIndex = parseInt(this.getAttribute('data-cell-index'));
 
-            if(gameState[clickedCellIndex] !== "") return;
+            if (gameState[clickedCellIndex] !== "") return;
 
             updateCell(clickedCellIndex, playerTurn);
             checkResult();
             changePlayer();
         }
-        if(isPc === true && playerTurn == 'O'){
+        if (playerTurn == 'O') {
             computerMove();
         }
-    } 
-    
+    }
+    else if (gameActive === true && isPc === false) {
+        if (playerTurn == 'X') {
+            const clickedCellIndex = parseInt(this.getAttribute('data-cell-index'));
+
+            if (gameState[clickedCellIndex] !== "") return;
+
+            updateCell(clickedCellIndex, playerTurn);
+            checkResult();
+            changePlayer();
+        }
+        if (playerTurn == 'O') {
+            const clickedCellIndex = parseInt(this.getAttribute('data-cell-index'));
+
+            if (gameState[clickedCellIndex] !== "") return;
+
+            updateCell(clickedCellIndex, playerTurn);
+            checkResult();
+            changePlayer();
+        }
+    }
+
 }
 
-function updateCell(i, player){
+function updateCell(i, player) {
     gameState[i] = player;
     const clickedCell = document.querySelector(`[data-cell-index = "${i}"]`);
     clickedCell.classList.remove('hoveredCell');
     clickedCell.innerHTML = player;
-    if (player == 'X'){
+    if (player == 'X') {
         clickedCell.classList.add('p1');
     }
     else {
         clickedCell.classList.add('p2');
     }
-    
+
 }
 
-function checkResult(){
+function checkResult() {
 
-    for (let i = 0; i < 8; i++){
+    for (let i = 0; i < 8; i++) {
         let winCondition = winningConditions[i];
         let a = gameState[winCondition[0]];
         let b = gameState[winCondition[1]];
@@ -83,39 +103,39 @@ function checkResult(){
         if (a === '' || b === '' || c === '') {
             continue;
         }
-        if (a==b && b==c){
+        if (a == b && b == c) {
             gameActive = false;
             winner = playerTurn;
             statusDisplay.innerHTML = `Winner is Player ${winner}`;
-            if(winner == "X"){
-                player1Score.innerHTML = parseInt(player1Score.textContent)+1;
+            if (winner == "X") {
+                player1Score.innerHTML = parseInt(player1Score.textContent) + 1;
             }
-            else{
-                player2Score.innerHTML = parseInt(player2Score.textContent)+1;
+            else {
+                player2Score.innerHTML = parseInt(player2Score.textContent) + 1;
             }
             return;
         }
         let resultDraw = gameState.includes("");
-        if (!resultDraw){
+        if (!resultDraw) {
             statusDisplay.innerHTML = "The match ended in a draw";
             gameActive = false;
         }
 
-        
+
     }
 }
 
-function restartGame(){
+function restartGame() {
     gameState = ["", "", "", "", "", "", "", "", ""];
     gameActive = true;
-    document.querySelectorAll('.cell').forEach(cell => {cell.innerHTML = "";cell.classList.remove('p1','p2')});
+    document.querySelectorAll('.cell').forEach(cell => { cell.innerHTML = ""; cell.classList.remove('p1', 'p2') });
     changePlayer();
-    if(playerTurn == 'O'){
+    if (playerTurn == 'O' && isPc === true) {
         computerMove();
     }
 }
 
-function restartScore(){
+function restartScore() {
     restartGame();
     player1Score.innerHTML = "0";
     player2Score.innerHTML = "0";
@@ -124,12 +144,12 @@ function restartScore(){
 
 
 //---------------------izgled-----------------------
-function cellHover(){
+function cellHover() {
     const hoveredCellIndex = parseInt(this.getAttribute('data-cell-index'));
-    if(gameState[hoveredCellIndex] !== "" || gameActive == false) return;
+    if (gameState[hoveredCellIndex] !== "" || gameActive == false) return;
     const hoveredCell = document.querySelector(`[data-cell-index = "${hoveredCellIndex}"]`);
     hoveredCell.innerHTML = playerTurn;
-    if (playerTurn == 'X'){
+    if (playerTurn == 'X') {
         hoveredCell.classList.add('p1', 'hoveredCell');
     }
     else {
@@ -137,29 +157,34 @@ function cellHover(){
     }
 }
 
-function cellHoverExit(){
+function cellHoverExit() {
     const exitCellIndex = parseInt(this.getAttribute('data-cell-index'));
-    if(gameState[exitCellIndex] !== "" || gameActive == false) return;
+    if (gameState[exitCellIndex] !== "" || gameActive == false) return;
     const exitCell = document.querySelector(`[data-cell-index = "${exitCellIndex}"]`);
     exitCell.innerHTML = '';
     exitCell.classList.remove('hoveredCell', 'p1', 'p2');
 }
 
-function pvp(){
+function changeScreen() {
     document.querySelector('#gameInner').classList.remove('hidden');
     document.querySelector('.chooseOpponent').classList.add('hidden');
     document.querySelector('.gameTitle').classList.add('hidden');
 }
 
-function vsPc(){
-    isPc = true;
-    pvp();
+function pvp() {
+    isPc = false;
+    changeScreen();
 }
 
-function computerMove(){
+function vsPc() {
+    isPc = true;
+    changeScreen();
+}
+
+function computerMove() {
     let i = Math.floor(Math.random() * 9);
-    
-    while(gameActive==true && gameState[i] !== ""){
+
+    while (gameActive == true && gameState[i] !== "") {
         i = Math.floor(Math.random() * 9);
     }
     updateCell(i, playerTurn);
